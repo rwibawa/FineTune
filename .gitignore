@@ -1,0 +1,6 @@
+.ipynb_checkpoints
+unsloth_compiled_cache
+lora_model
+merged_model
+outputs
+text2sql_8.gguf
