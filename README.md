@@ -53,7 +53,7 @@ WARNING[XFORMERS]: xFormers can't load C++/CUDA extensions. xFormers was built f
 
 Here is the remedy when creating the virtual environment:
 ```shell
-$ conda create --name unsloth_env python=3.11.9 pytorch-cuda=12.1 pytorch=2.3.0 cudatoolkit -c pytorch -c nvidia -c xformers -y
+(base) $ conda create --name unsloth_env python=3.11.9 pytorch-cuda=12.1 pytorch=2.3.0 cudatoolkit -c pytorch -c nvidia -c xformers -y
 ```
 
 ### 3.3. Install `jupyter`
@@ -81,6 +81,28 @@ $ sudo apt install build-essential
 Next, install the Ollama library
 ```shell
 $ curl -fsSL https://ollama.com/install.sh | sh
+$ ollama serve
 ```
 
 Then create the Modelfile and run the ollama command to create the model using the Modelfile.
+
+### Use `open-webui` on `docker` in order to chat with our model:
+```shell
+$ docker run -d -p 4090:8080 --name open-webui ghcr.io/open-webui/open-webui:main
+
+$ ollama list
+NAME                      ID              SIZE      MODIFIED     
+unsloth_model_8:latest    f5a83be752d9    8.1 GB    10 hours ago    
+deepseek-r1:7b            0a8c26691023    4.7 GB    16 hours ago
+$ ollama ps
+NAME                      ID              SIZE      PROCESSOR    UNTIL              
+unsloth_model_8:latest    f5a83be752d9    9.2 GB    100% GPU     4 minutes from now
+```
+
+Open it at [http://localhost:4090/](http://localhost:4090/)
+![Open-WebUI](./docs/img/Open-WebUI-01.jpg)
+
+
+## 4. Datasets
+* [synthetic_text_to_sql](https://huggingface.co/datasets/gretelai/synthetic_text_to_sql?row=0)
+* [alpaca-gpt4](https://huggingface.co/datasets/vicgalle/alpaca-gpt4)
