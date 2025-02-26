@@ -1,51 +1,86 @@
-1.	For Setting up Ubuntu: Turn on Windows System for Linux from the features
-2.	Open powershell and type “wsl --install”
-3.	Navigate to \\wsl.localhost\Ubuntu\home\asus and create a folder to work on.
-4.	Next is Installing Visual Studio Code for Ubuntu. Go to VS Code Editor and download the Debian version.
-5.	Place the executable file in the Downloads of Windows.
-6.	Now, in order to access the download folder, go to ubuntu cli and type ls /mnt/c/Users/Asus/Downloads 
-7.	Try to install using the following command: sudo dpkg -i /mnt/c/Users/Asus/Downloads/code_1.93.1-1726079302_amd64.deb
-8.	You will fail. But then run these, sudo apt update and sudo apt install -f and then try reinstalling.
-9.	Congrats, now go to start and open the visual studio code editor ubuntu version. 
-10.	Do the initial settings.
-11.	Next would be to install miniconda. Using the following command
+# FineTune
+[Unsloth](https://github.com/unslothai/unsloth) makes finetuning large language models like Llama-3, Mistral, Phi-4 and Gemma 2x faster, use 70% less memory, and with no degradation in accuracy!
+
+The code exercise will finetune the DeepSeek R1 with text-to-sql dataset.
+
+## 1. Install `WSL` or `WSL2` on Windows
+[How to install Linux on Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
+
+Setting up Ubuntu: Turn on Windows System for Linux from the features.
+
+## 2. Install **Visual Studio Code** on Windows
+[Visual Studio Code on Windows](https://code.visualstudio.com/docs/setup/windows)
+
+Use it to access the Ubuntu Linux distro - WSL.
+![VSCode on WSL: Ubuntu-22.04](./docs/img/VSCode-01.jpg)
+
+## 3. Install **Miniconda**    
+### 3.1. **Miniconda** Installation:
+Run on Terminal. Install miniconda in the user's home folder `~/`:
+```shell
+$	mkdir -p ~/miniconda3
+$	wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+$	bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+$	rm -rf ~/miniconda3/miniconda.sh
+$	~/miniconda3/bin/conda init bash
+$	~/miniconda3/bin/conda init zsh
+$ source ~/miniconda3/bin/activate
+$ conda init --all
+```
+
+### 3.2. Virtual Environment
+Next would be to set up a virtual environment.
     
-a.	# ## Prerequisite. Run on Terminal. Install miniconda. In the folder cd /home/asus/
+Open a new Terminal: 
 
-b.	mkdir -p ~/miniconda3
+```shell
+(base) $	conda create --name unsloth_env python=3.11.9 pytorch-cuda=12.1 pytorch=2.3.0 cudatoolkit xformers<0.0.27 -c pytorch -c nvidia -c xformers -y
+(base) $	conda activate unsloth_env
 
-c.	wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+(unsloth_env) $	pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+(unsloth_env) $	pip install --no-deps trl peft accelerate bitsandbytes
+```
 
-d.	bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+The `xformers` may give this warning:
+```
+WARNING[XFORMERS]: xFormers can't load C++/CUDA extensions. xFormers was built for:
+    PyTorch 2.3.0+cu121 with CUDA 1201 (you have 2.5.1)
+    Python  3.11.9 (you have 3.11.11)
+  Please reinstall xformers (see https://github.com/facebookresearch/xformers#installing-xformers)
+  Memory-efficient attention, SwiGLU, sparse and more won't be available.
+  Set XFORMERS_MORE_DETAILS=1 for more details
+```
 
-e.	rm -rf ~/miniconda3/miniconda.sh
+Here is the remedy when creating the virtual environment:
+```shell
+$	conda create --name unsloth_env python=3.11.9 pytorch-cuda=12.1 pytorch=2.3.0 cudatoolkit -c pytorch -c nvidia -c xformers -y
+```
 
-f.	~/miniconda3/bin/conda init bash
+### 3.3. Install `jupyter`
+```shell
+(unsloth_env) $ conda install jupyter
+(unsloth_env) $ jupyter notebook
+```
 
-g.	~/miniconda3/bin/conda init zsh
+Open `app.ipynb` on `jupyter notebook:
+![`app.ipynb`](./docs/img/Jupyter-Notebook-01.jpg)
 
-h. source ~/miniconda3/bin/activate
+### 3.4. Install **C Compiler** and its modules
+Now, get the files ready, and train the model. While training, there will be another issue of C compiler not found. You solve this by running these two:
+```shell
+$	sudo apt update
+$	sudo apt install build-essential
+```
 
-i. conda init --all
+### 3.5 Generating a model:
+*	Next would be to save the models as safe tensors
+*	Next would be save in the .gguf format
+*	This would be used to make the ollama model
 
-13.	Next would be set up a virtual environment
-    
-a.	### Run on Terminal 
+### 3.6 Install **Ollama**
+Next, install the Ollama library
+```shell
+$ curl -fsSL https://ollama.com/install.sh | sh
+```
 
-b.	conda create --name unsloth_env python=3.11 pytorch-cuda=12.1 pytorch cudatoolkit xformers -c pytorch -c nvidia -c xformers -y
-
-c.	conda activate unsloth_env
-
-d.	pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
-
-e.	pip install --no-deps trl peft accelerate bitsandbytes
-
-15.	As a last step, do, conda install jupyter
-16.	Now, get the files ready, and train the model. While training, there will be another issue of C compiler not found. You solve this by running these two:
-a.	sudo apt update
-b.	sudo apt install build-essential
-17.	Next would be to save the models as safe tensors
-18.	Next would be save in the .gguf format
-19.	This would be used to make the ollama model
-20.	Next, install the Ollama library using the command on terminal “curl -fsSL https://ollama.com/install.sh | sh”
-21.	Create the Modelfile and run the ollama command to create the model using the Modelfile
+Then create the Modelfile and run the ollama command to create the model using the Modelfile.
