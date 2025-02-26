@@ -63,7 +63,8 @@ Here is the remedy when creating the virtual environment:
 ```
 
 Open `app.ipynb` on `jupyter notebook:
-![`app.ipynb`](./docs/img/Jupyter-Notebook-01.jpg)
+
+![app.ipynb](./docs/img/Jupyter-Notebook-01.jpg)
 
 ### 3.4. Install **C Compiler** and its modules
 Now, get the files ready, and train the model. While training, there will be another issue of C compiler not found. You solve this by running these two:
@@ -100,6 +101,7 @@ unsloth_model_8:latest    f5a83be752d9    9.2 GB    100% GPU     4 minutes from 
 ```
 
 Open it at [http://localhost:4090/](http://localhost:4090/)
+
 ![Open-WebUI](./docs/img/Open-WebUI-01.jpg)
 
 
