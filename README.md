@@ -18,12 +18,12 @@ Use it to access the Ubuntu Linux distro - WSL.
 ### 3.1. **Miniconda** Installation:
 Run on Terminal. Install miniconda in the user's home folder `~/`:
 ```shell
-$	mkdir -p ~/miniconda3
-$	wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
-$	bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
-$	rm -rf ~/miniconda3/miniconda.sh
-$	~/miniconda3/bin/conda init bash
-$	~/miniconda3/bin/conda init zsh
+$ mkdir -p ~/miniconda3
+$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+$ bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+$ rm -rf ~/miniconda3/miniconda.sh
+$ ~/miniconda3/bin/conda init bash
+$ ~/miniconda3/bin/conda init zsh
 $ source ~/miniconda3/bin/activate
 $ conda init --all
 ```
@@ -34,8 +34,8 @@ Next would be to set up a virtual environment.
 Open a new Terminal: 
 
 ```shell
-(base) $	conda create --name unsloth_env python=3.11.9 pytorch-cuda=12.1 pytorch=2.3.0 cudatoolkit xformers<0.0.27 -c pytorch -c nvidia -c xformers -y
-(base) $	conda activate unsloth_env
+(base) $ conda create --name unsloth_env python=3.11.9 pytorch-cuda=12.1 pytorch=2.3.0 cudatoolkit xformers<0.0.27 -c pytorch -c nvidia -c xformers -y
+(base) $ conda activate unsloth_env
 
 (unsloth_env) $	pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
 (unsloth_env) $	pip install --no-deps trl peft accelerate bitsandbytes
@@ -53,7 +53,7 @@ WARNING[XFORMERS]: xFormers can't load C++/CUDA extensions. xFormers was built f
 
 Here is the remedy when creating the virtual environment:
 ```shell
-$	conda create --name unsloth_env python=3.11.9 pytorch-cuda=12.1 pytorch=2.3.0 cudatoolkit -c pytorch -c nvidia -c xformers -y
+$ conda create --name unsloth_env python=3.11.9 pytorch-cuda=12.1 pytorch=2.3.0 cudatoolkit -c pytorch -c nvidia -c xformers -y
 ```
 
 ### 3.3. Install `jupyter`
@@ -68,8 +68,8 @@ Open `app.ipynb` on `jupyter notebook:
 ### 3.4. Install **C Compiler** and its modules
 Now, get the files ready, and train the model. While training, there will be another issue of C compiler not found. You solve this by running these two:
 ```shell
-$	sudo apt update
-$	sudo apt install build-essential
+$ sudo apt update
+$ sudo apt install build-essential
 ```
 
 ### 3.5 Generating a model:
