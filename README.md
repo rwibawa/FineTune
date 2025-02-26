@@ -101,3 +101,8 @@ unsloth_model_8:latest    f5a83be752d9    9.2 GB    100% GPU     4 minutes from 
 
 Open it at [http://localhost:4090/](http://localhost:4090/)
 ![Open-WebUI](./docs/img/Open-WebUI-01.jpg)
+
+
+## 4. Datasets
+* [synthetic_text_to_sql](https://huggingface.co/datasets/gretelai/synthetic_text_to_sql?row=0)
+* [alpaca-gpt4](https://huggingface.co/datasets/vicgalle/alpaca-gpt4)
